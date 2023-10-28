@@ -1,30 +1,25 @@
 class Solution {
 public:
+    // This function, 'findMiddleIndex', finds the index of the middle element in a given vector 'nums'.
+    // The middle element is defined as the index where the sum of elements to the left equals the sum of elements to the right.
+
     int findMiddleIndex(vector<int>& nums) {
-        // vector<int> lsum(nums.size());
-        // vector<int> rsum(nums.size());
-        // int sum=0,sum1=0;
-        // for(int i=0; i<nums.size(); i++){
-        //     sum+=nums[i];
-        //     lsum[i]=sum;
-        //     sum1+=nums[nums.size()-1-i];
-        //     rsum[nums.size()-1-i]=sum1;
-        // }
-        // for(int i=0;i<nums.size();i++)
-        // {
-        //     if(lsum[i]==rsum[i])
-        //         return i;
-        // }
-        // return -1;
-        int postfixsum=accumulate(nums.begin(),nums.end(),0); // calculate the sum of the array  
-    int prefixsum=0; // initially the prefix sum is =0;
-    for(int i=0;i<nums.size();i++)
-    {
-        postfixsum-=nums[i];//lets the mid element contender be i , subtract it from sum as it should neither be in prefixsum nor in postfixsum.
-        if(postfixsum==prefixsum)//check if prefixsum ==postfix sum  if yes return true.
-            return i;
-        prefixsum+=nums[i];//add the element int orpefix sum since the previous condition was false and this element is no longer the contender of middle index.
-    }
-        return -1;//if the above condition in the loop was false this pretty much concludes that we have no middle element in our array.
+        int postfixsum = accumulate(nums.begin(), nums.end(), 0); // Calculate the sum of the entire array.
+        int prefixsum = 0; // Initialize the prefix sum to 0.
+
+        // Iterate through the elements in 'nums' to find the middle index.
+        for (int i = 0; i < nums.size(); i++) {
+            postfixsum -= nums[i]; // Subtract the current element from 'postfixsum' as it's not part of the prefix sum or postfix sum.
+
+            // Check if the prefix sum is equal to the postfix sum. If true, return the current index.
+            if (postfixsum == prefixsum) {
+                return i;
+            }
+
+            prefixsum += nums[i]; // Add the current element to the prefix sum, as it's not the middle element candidate.
+        }
+
+        // If the loop completes without finding a middle index, return -1 (indicating there's no middle element).
+        return -1;
     }
 };
