@@ -8,29 +8,32 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
 class Solution {
 public:
-    // void append(ListNode* head, int val){
-    //     ListNode* temp = new ListNode(val);
-    //     ListNode* temp2 = head;
-    //     while(temp2->next != NULL){
-    //         temp2 = temp2->next;
-    //     }
-    //     temp2->next = temp;
-    // }
+    // This function, 'removeElements', removes all nodes in a singly-linked list 'head'
+    // that have the given value 'val'. It returns the modified linked list.
+
     ListNode* removeElements(ListNode* head, int val) {
-    if(head == NULL) return NULL;
-    ListNode* temp = head;
-    while(head!= NULL && head->val == val){
-        head=head->next;
-    }
-    temp=head;
-    while(temp != NULL && temp->next != NULL){
-        while(temp != NULL && temp->next != NULL && temp->next->val == val){
-            temp->next = temp->next->next;
+        if (head == NULL) {
+            return NULL; // If the list is initially empty, return NULL.
         }
-        temp = temp->next;
+
+        // Remove all nodes with 'val' at the beginning of the list.
+        while (head != NULL && head->val == val) {
+            head = head->next;
+        }
+
+        ListNode* temp = head; // Initialize a temporary pointer to traverse the list.
+
+        // Iterate through the list to remove nodes with 'val'.
+        while (temp != NULL && temp->next != NULL) {
+            while (temp->next != NULL && temp->next->val == val) {
+                temp->next = temp->next->next; // Skip nodes with 'val'.
+            }
+            temp = temp->next; // Move to the next node.
+        }
+
+        return head; // Return the modified linked list.
     }
-    return head;
-}
 };

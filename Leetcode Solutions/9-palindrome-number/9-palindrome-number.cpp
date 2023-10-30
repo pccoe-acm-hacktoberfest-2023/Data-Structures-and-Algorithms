@@ -1,25 +1,29 @@
 class Solution {
 public:
     bool isPalindrome(int x) {
-        if(x<0){
+        // Check if x is negative, which can't be a palindrome.
+        if (x < 0) {
             return false;
         }
-        unsigned long int rev=0, x1 = x;
-        int n;
-        while(x1){
-            // checking overflow
-            // if(rev > INT_MAX/10 || rev < INT_MIN/10){
-            //     return 1;
-            // }
-            n=x1%10;
-            rev = rev*10 + n;
-            x1 -= n;
-            x1 /= 10;
-            
+        
+        // Initialize variables for reversing the number.
+        unsigned long int rev = 0;  // Stores the reversed number.
+        unsigned long int x1 = x;  // Make a copy of x to avoid modifying the original number.
+        int n;  // Variable to store the last digit.
+
+        // Reverse the digits of x1.
+        while (x1) {
+            n = x1 % 10;  // Get the last digit.
+            rev = rev * 10 + n;  // Reverse the number.
+            x1 -= n;  // Remove the last digit.
+            x1 /= 10;  // Move to the next digit.
         }
-        if(rev == x){
-            return true;
+
+        // Check if the reversed number matches the original number.
+        if (rev == x) {
+            return true;  // x is a palindrome.
         }
-        return false;
+        
+        return false;  // x is not a palindrome.
     }
 };
